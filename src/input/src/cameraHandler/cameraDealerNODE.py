@@ -68,7 +68,7 @@ class cameraDealerNODE():
     def _init_socket(self):
         """Initialize the socket client. 
         """
-        serverIp   =  '192.168.88.201' # PC ip
+        serverIp   =  '192.168.178.34' # PC ip
         port       =  2244            # com port
         
         self.client_socket = socket.socket()
@@ -92,6 +92,7 @@ class cameraDealerNODE():
         if self.connection is not None:
             try:
                 image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+                image = cv2.cvtColor(image,cv2.COLOR_BGR2Luv)
                 result, image = cv2.imencode('.jpg', image, encode_param)
                 data   =  image.tobytes()
                 size   =  len(data)
